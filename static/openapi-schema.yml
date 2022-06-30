@@ -1,0 +1,153 @@
+openapi: 3.0.2
+info:
+  title: 'Authorization Api'
+  description: 'Api de autorização de usuário para o sistema de comentários e notas para o Code Challenge Itaú'
+  version: '1.0.0'
+paths:
+  /api-token-auth/:
+    post:
+      operationId: createAuthToken
+      description: 'Get token user'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      tags:
+      - api-token-auth
+  /signup:
+    post:
+      operationId: createUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - signup
+  /api-token-valid/:
+    post:
+      operationId: createvalidate_token
+      description: Validate token
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Token'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidTokenResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: ''
+      tags:
+      - api-token-valid
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - username
+      - password
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        nickname:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 50
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - nickname
+      - first_name
+      - last_name
+      - password
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+        - token
+    ValidTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        valid token:
+          type: boolean
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        nickname:
+          type: string
+          maxLength: 20
+
+      required:
+        - token
+        - valid token
+        - email
+        - nickname
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
