@@ -2,7 +2,7 @@
 <p>Projeto realizado para o coding challenge do programa dev experts do Itaú em parceria com a Let's Code.</p>
 <p>Se baseia em uma Aplicação de autenticação para um serviço 
 onde os usuários possam ver informações sobre determinados filmes, dar uma nota e realizar comentários.</p>
-<p>A <a href="https://github.com/thiagofelix1/movie_api_coding_challenge">API de notas e comentários </a>
+<p>A  <a href="https://github.com/thiagofelix1/movie_api_coding_challenge">API de notas e comentários </a>
 trabalha em conjunto com este projeto, sendo este responsável por todo controle de usuários e os endpoints são consumidos 
 pela API de notas e comentários.</p>
 <p>Todos os endpoints da API de autenticação necessitam de um token para serem acessadas de forma a receber 
@@ -93,7 +93,7 @@ http://127.0.0.1:8000/admin/ , por ser um superusuario ele já vai ser criado co
 <p>Após rodas as migrações você pode iniciar o serviço utilizando: </p>
 
 ```
-python3 manage.py createsuperuser
+python manage.py createsuperuser
 ```
 <p>O terminal exibirá algumas informações para vocẽ preencher, algo como: </p>
 
@@ -106,7 +106,13 @@ Password:
 Password (again):
 Superuser created successfully.
 ```
-<p>Após isso você pode usar o username e password para entrar no site de administração.</p>
+<p>Após isso você pode usar o email e password para entrar no site de administração.</p>
+
+<h3>Instalando o Redis </h3>
+<p>A aplicação precisa do redis para funcionar, os seguintes 
+<a href="https://redis.io/docs/getting-started/installation/">Tutoriais</a> ensinam como intalar no Windows, macOs e Linux. </p>
+
+<h3>Iniciando a aplicação:</h3>
 
 ```
 python3 manage.py runserver
