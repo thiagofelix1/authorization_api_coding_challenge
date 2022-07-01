@@ -29,7 +29,6 @@ class TokenSerializer(serializers.Serializer):
 
 class AddPointsSerializer(serializers.Serializer):
     points = serializers.IntegerField()
-    key = serializers.CharField()
     token = serializers.CharField()
 
 

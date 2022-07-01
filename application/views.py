@@ -10,9 +10,9 @@ from rest_framework.permissions import AllowAny
 from .models import User
 from .serializers import MakeModeratorSerializer, UserSerializer, TokenSerializer, AddPointsSerializer
 from datetime import timedelta
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-
+from .permissions import IsAuthenticated
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -21,8 +21,8 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     else:
         print("TOKEN INVALID")
 
-
 class CustomAuthToken(ObtainAuthToken):
+    permission_classes = (IsAuthenticated,)
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
@@ -54,14 +54,14 @@ class CustomAuthToken(ObtainAuthToken):
             'profile': user.profile
         })
 
-
 class UserCreateAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def validate_token(request):
     """
     Validate token
@@ -85,12 +85,10 @@ def validate_token(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def add_points(request):
     serializer = AddPointsSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    key = 'e907826fa8b7e7899f48516b2a6758be'
-    if not serializer.validated_data['key'] == key:
-        return Response({'status_add_points': 'invalid key', 'error': True}, status=status.HTTP_400_BAD_REQUEST)
     token = Token.objects.filter(
         key=serializer.validated_data['token']).first()
     if not token:
@@ -115,6 +113,7 @@ def add_points(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def make_moderator(request):
     serializer = MakeModeratorSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
