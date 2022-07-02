@@ -32,7 +32,7 @@ source venv/bin/activate
 
 ```
 python venv venv
-venv/Scripts/activate
+venv\Scripts\activate
 
 ```
 <h3>Instalando dependências e iniciando o serviço</h3>
@@ -115,8 +115,12 @@ Superuser created successfully.
 <h3>Iniciando a aplicação:</h3>
 
 ```
-python3 manage.py runserver
+python manage.py runserver
 ```
-<p> Você verá que o serviço vai rodar no localhost na porta 8080, algo como http://127.0.0.1:8080/</p>
+<p> Você verá que o serviço vai rodar no localhost na porta 8000, algo como http://127.0.0.1:8000/</p>
+<h3>Documentação da API </h3>
 <p> A documentação da API, os endpoints de acesso e suas descrições assim como os parâmetros de autenticação e envio das informações 
 podem ser vistos na documenta da API, presente em http://127.0.0.1:8000/documentation</p>
+
+<h3> Site de Administração </h3>
+<p>O site de administração do django está presente em http://127.0.0.1:8000/admin , nele você consegue ver como os dados estão sendo armazenados e é bem intuitivo </p>
